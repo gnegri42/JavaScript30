@@ -35,6 +35,33 @@
   </style>
 
 <script>
+  const hero = document.querySelector(".hero");
+  const text = hero.querySelector('h1');
+  const walk = 100;
+
+  function shadow(e) {
+    const width = hero.offsetWidth; // or: const { offsetWidth: width, offsetHeight: height } = hero;
+    const height = hero.offsetHeight;
+    let x = e.offsetX; // or: let { offsetX: x, offsetY: y } = e;
+    let y = e.offsetY;
+
+    if (this !== e.target) {
+      x = x + e.target.OffsetLeft;
+      y = y + e.target.OffsetTop;
+    }
+
+    const xWalk = Math.round((x / width * walk) - (walk / 2));
+    const yWalk = Math.round((y / height * walk) - (walk / 2));
+
+    text.style.textShadow = `
+    ${xWalk}px ${yWalk}px 0 rgba(255, 255, 0, 0.7),
+    ${xWalk * -1}px ${yWalk}px 0 rgba(255, 0, 0, 0.7),
+    ${yWalk}px ${xWalk}px 0 rgba(255, 0, 255, 0.7)
+    `;
+  }
+
+  hero.addEventListener("mousemove", shadow);
+
 </script>
 </body>
 </html>
